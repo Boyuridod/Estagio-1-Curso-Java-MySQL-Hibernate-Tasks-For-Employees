@@ -31,6 +31,8 @@ public class QueryComplexaServlet extends HttpServlet {
 		String busca = req.getParameter("busca");
 		
 		req.setAttribute("listFilter", opdao.listFilter(busca));
+		
+		req.setAttribute("busca", busca);
 
 		req.getRequestDispatcher("queriescomplexas.jsp").forward(req, resp);
 

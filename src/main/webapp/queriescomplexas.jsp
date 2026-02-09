@@ -26,7 +26,7 @@
 	
 	<form method="get">
 		<label>Digite um nome para buscar: </label>
-		<input type="text" name="busca">
+		<input type="text" name="busca" value="${busca}">
 		<button type="submit">Buscar</button>
 	</form>
 	

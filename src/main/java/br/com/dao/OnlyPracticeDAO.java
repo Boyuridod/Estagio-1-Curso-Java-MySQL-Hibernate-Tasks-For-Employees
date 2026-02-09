@@ -106,8 +106,10 @@ public class OnlyPracticeDAO {
 			
 			Query<Employee> query = session.createQuery(hql, Employee.class);
 			
-			query.setParameter("nomeBuscar", "%"+busca.toLowerCase()+"%");
-			
+			if(busca != null) {
+				query.setParameter("nomeBuscar", "%"+busca.toLowerCase()+"%");
+			}
+						
 			resultList = new ArrayList<>(query.list());
 			
 			session.getTransaction().commit();
