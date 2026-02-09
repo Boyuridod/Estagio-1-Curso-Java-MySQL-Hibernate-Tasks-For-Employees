@@ -17,52 +17,46 @@ import br.com.model.Task;
 @WebServlet("/tasks")
 public class TaskServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	private final TaskDAO dao = new TaskDAO();
 	private final EmployeeDAO empdao = new EmployeeDAO();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    	List<Task> tasks = dao.findAll();
+		List<Task> tasks = dao.findAll();
 
-        req.setAttribute("tasks", tasks);
-        
-        List<Employee> employees = empdao.findAll();
+		req.setAttribute("tasks", tasks);
+
+		List<Employee> employees = empdao.findAll();
 
 		req.setAttribute("employees", employees);
-		
-        req.getRequestDispatcher("tasks.jsp").forward(req, resp);
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws IOException {
+		req.getRequestDispatcher("tasks.jsp").forward(req, resp);
+	}
 
-        String title = req.getParameter("title");
-        String completed = req.getParameter("completed");
-        String emp = req.getParameter("employee");
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-        Task task = new Task();
-        task.setTitle(title);
-        
-        if(completed == null)
-        	task.setCompleted(false);
-        else {
-        	task.setCompleted(true);
-        }
-        
-        System.out.println("EMP = " + emp);
-        
-        task.setEmployee(empdao.findById(Integer.parseInt(emp)));
+		String title = req.getParameter("title");
+		String completed = req.getParameter("completed");
+		String emp = req.getParameter("employee");
 
-        dao.save(task);
-        
-        resp.sendRedirect("tasks");
-    }
+		Task task = new Task();
+		task.setTitle(title);
 
+		if (completed == null)
+			task.setCompleted(false);
+		else {
+			task.setCompleted(true);
+		}
 
+		task.setEmployee(empdao.findById(Integer.parseInt(emp)));
+
+		dao.save(task);
+
+		resp.sendRedirect("tasks");
+	}
 
 }

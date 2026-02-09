@@ -26,10 +26,10 @@ public class TaskDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 
-			if(session.getTransaction() !=null && session.getTransaction().isActive()) {
+			if (session.getTransaction() != null && session.getTransaction().isActive()) {
 				session.getTransaction().rollback();
-	    	}
-		}finally {
+			}
+		} finally {
 			session.close();
 		}
 
@@ -47,10 +47,10 @@ public class TaskDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			if(session.getTransaction() != null && session.getTransaction().isActive()) {
+			if (session.getTransaction() != null && session.getTransaction().isActive()) {
 				session.getTransaction().rollback();
-	    	}
-		}finally {
+			}
+		} finally {
 			session.close();
 		}
 

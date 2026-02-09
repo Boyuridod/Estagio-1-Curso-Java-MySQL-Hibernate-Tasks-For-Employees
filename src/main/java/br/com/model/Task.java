@@ -14,16 +14,17 @@ import javax.persistence.Table;
 public class Task {
 
 	private Long id;
-    private String title;
-    private Boolean completed;
-    private Employee employee;
+	private String title;
+	private Boolean completed;
+	private Employee employee;
 
-    @Id
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true, nullable = false)
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -47,7 +48,7 @@ public class Task {
 	}
 
 	@ManyToOne
-    @JoinColumn(name = "EMPLOYEE_ID", nullable = true)
+	@JoinColumn(name = "EMPLOYEE_ID", nullable = true)
 	public Employee getEmployee() {
 		return employee;
 	}

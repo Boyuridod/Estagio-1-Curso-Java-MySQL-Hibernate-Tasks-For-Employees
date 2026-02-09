@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(catalog="estagio", name="employee")
+@Table(catalog = "estagio", name = "employee")
 public class Employee {
 
 	private Integer id;
@@ -68,13 +68,13 @@ public class Employee {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
+
 //	@ManyToOne
 	@OneToMany(mappedBy = "employee")
-	public List<Task> getTasks(){
+	public List<Task> getTasks() {
 		return this.tasks;
 	}
-	
+
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}

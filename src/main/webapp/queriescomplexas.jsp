@@ -22,6 +22,35 @@
 <body>
 	<h2>Queries complexas</h2>
 	
+	<h3>Search for employees</h3>
+	
+	<form method="get">
+		<label>Digite um nome para buscar: </label>
+		<input type="text" name="busca">
+		<button type="submit">Buscar</button>
+	</form>
+	
+	
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Role</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${listFilter}" var="row">
+				<tr>
+					<td>${row.id}</td>
+					<td>${row.firstName}</td>
+					<td>${row.lastName}</td>
+					<td>${row.role}</td>
+			</c:forEach>
+		</tbody>
+	</table>
+	
 	<h3>Task left join Employee</h3>
 	<table>
 		<thead>

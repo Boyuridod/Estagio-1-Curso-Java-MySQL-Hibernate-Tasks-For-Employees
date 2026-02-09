@@ -10,7 +10,7 @@ import br.com.model.Employee;
 
 public class EmployeeDAO {
 
-	public List<Employee> findAll(){
+	public List<Employee> findAll() {
 
 		Session session = HibernateUtils.getSessionFactory().openSession();
 
@@ -24,7 +24,7 @@ public class EmployeeDAO {
 
 			return resultList;
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 
@@ -53,7 +53,7 @@ public class EmployeeDAO {
 
 			return employee;
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 
 			e.printStackTrace();
 
@@ -78,10 +78,10 @@ public class EmployeeDAO {
 
 			session.getTransaction().commit();
 
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 
-			if(session.getTransaction() != null && session.getTransaction().isActive()) {
+			if (session.getTransaction() != null && session.getTransaction().isActive()) {
 
 				session.getTransaction().rollback();
 
@@ -111,7 +111,7 @@ public class EmployeeDAO {
 
 			e.printStackTrace();
 
-			if(session.getTransaction() != null && session.getTransaction().isActive()) {
+			if (session.getTransaction() != null && session.getTransaction().isActive()) {
 
 				session.getTransaction().rollback();
 
@@ -124,38 +124,38 @@ public class EmployeeDAO {
 		}
 
 	}
-	
+
 	public void deleteById(int id) {
-		
+
 		Session session = HibernateUtils.getSessionFactory().openSession();
-		
+
 		try {
-			
+
 			session.beginTransaction();
-			
+
 			String hql = "DELETE FROM Employee WHERE id = :id";
-			
+
 			Query<?> query = session.createQuery(hql);
-			
+
 			query.setParameter("id", id);
-			
+
 			int rowsAffected = query.executeUpdate();
-			
+
 			System.out.println(rowsAffected + " " + (rowsAffected > 1 ? "funcionários" : "funcionario")
 					+ " deletado(a) com sucesso");
-			
+
 			session.getTransaction().commit();
-			
-		} catch(Exception e) {
-			
+
+		} catch (Exception e) {
+
 			e.printStackTrace();
-			
+
 		} finally {
-			
+
 			session.close();
-			
+
 		}
-		
+
 	}
 
 	public void deleteEmployee(Employee employee) {
@@ -174,7 +174,7 @@ public class EmployeeDAO {
 
 			e.printStackTrace();
 
-			if(session.getTransaction() != null && session.getTransaction().isActive()) {
+			if (session.getTransaction() != null && session.getTransaction().isActive()) {
 
 				session.getTransaction().rollback();
 
