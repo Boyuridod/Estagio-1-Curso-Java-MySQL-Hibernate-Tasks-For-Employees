@@ -39,6 +39,12 @@ public class EmployeeServlet extends HttpServlet {
 		} else {
 			req.setAttribute("active", false);
 		}
+		
+		String busca = req.getParameter("busca");
+		
+		req.setAttribute("listFilter", dao.listFilter(busca));
+		
+		req.setAttribute("busca", busca);
 
 		req.getRequestDispatcher("employee.jsp").forward(req, resp);
 
@@ -47,9 +53,12 @@ public class EmployeeServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
-		String action = req.getParameter("action");
+		String save = req.getParameter("save");
+		String update = req.getParameter("update");
+		String delete = req.getParameter("delete");
+		
 
-		if (action.equals("save")) {
+		if (save != null) {
 
 			String firstName = req.getParameter("firstName");
 			String lastName = req.getParameter("lastName");
@@ -60,27 +69,29 @@ public class EmployeeServlet extends HttpServlet {
 			dao.save(employee);
 
 		}
-
-		if (action.equals("update")) {
-
-			Integer id = Integer.parseInt(req.getParameter("id"));
-			String firstName = req.getParameter("firstName");
-			String lastName = req.getParameter("lastName");
-			String role = req.getParameter("role");
-
+		
+		
+		if (update != null) {
+			
+			Integer id = Integer.parseInt(update);
+			String firstName = req.getParameter("inputFirstName" + id);
+			String lastName = req.getParameter("inputLastName" + id);
+			String role = req.getParameter("inputRole"+id);
+			
 			Employee employee = new Employee(id, firstName, lastName, role);
-
+			
 			dao.updateEmployee(employee);
-
+			
 		}
 
-		if (action.equals("delete")) {
 
-			Integer id = Integer.parseInt(req.getParameter("id"));
+		if (delete != null) {
 
-			if (id != null) {
-				dao.deleteById(id);
-			}
+			Integer id = Integer.parseInt(delete);
+			
+			System.out.println(id);
+			
+			dao.deleteById(id);
 
 		}
 

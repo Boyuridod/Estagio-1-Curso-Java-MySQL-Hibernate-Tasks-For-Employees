@@ -1,5 +1,6 @@
 package br.com.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,6 +10,52 @@ import br.com.config.HibernateUtils;
 import br.com.model.Employee;
 
 public class EmployeeDAO {
+
+	public List<Employee> listFilter(String busca){
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		
+		List<Employee> resultList = null;
+		
+		try {
+			
+			session.getTransaction().begin();
+			
+			String hql = null;
+			
+			if(busca == null) {
+				hql = "FROM Employee";
+			}
+			
+			else {
+				hql = "FROM Employee WHERE LOWER(CONCAT(firstName, ' ', lastName)) LIKE :nomeBuscar";
+			}
+			
+			Query<Employee> query = session.createQuery(hql, Employee.class);
+			
+			if(busca != null) {
+				query.setParameter("nomeBuscar", "%"+busca.toLowerCase()+"%");
+			}
+						
+			resultList = new ArrayList<>(query.list());
+			
+			session.getTransaction().commit();
+			
+		} catch (Exception e) {
+			
+			session.getTransaction().rollback();
+			
+			e.printStackTrace();
+			
+		} finally {
+			
+			session.close();
+			
+		}
+		
+		return resultList;
+		
+	}
 
 	public List<Employee> findAll() {
 
@@ -139,10 +186,7 @@ public class EmployeeDAO {
 
 			query.setParameter("id", id);
 
-			int rowsAffected = query.executeUpdate();
-
-			System.out.println(rowsAffected + " " + (rowsAffected > 1 ? "funcionários" : "funcionario")
-					+ " deletado(a) com sucesso");
+			query.executeUpdate();
 
 			session.getTransaction().commit();
 
