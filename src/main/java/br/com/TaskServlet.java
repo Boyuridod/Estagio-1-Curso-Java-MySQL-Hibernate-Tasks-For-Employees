@@ -38,23 +38,60 @@ public class TaskServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-
-		String title = req.getParameter("title");
-		String completed = req.getParameter("completed");
-		String emp = req.getParameter("employee");
-
-		Task task = new Task();
-		task.setTitle(title);
-
-		if (completed == null)
-			task.setCompleted(false);
-		else {
-			task.setCompleted(true);
+		
+		String save = req.getParameter("save");
+		String update = req.getParameter("update");
+		String delete = req.getParameter("delete");
+				
+		if(save != null) {
+			String title = req.getParameter("title");
+			String completed = req.getParameter("completed");
+			String emp = req.getParameter("employee");
+			
+			Task task = new Task();
+			task.setTitle(title);
+			
+			if (completed == null)
+				task.setCompleted(false);
+			else {
+				task.setCompleted(true);
+			}
+			
+			task.setEmployee(empdao.findById(Integer.parseInt(emp)));
+			
+			dao.save(task);		
 		}
-
-		task.setEmployee(empdao.findById(Integer.parseInt(emp)));
-
-		dao.save(task);
+		
+		if(update != null) {
+			
+			int id = Integer.parseInt(req.getParameter("inputId"));
+			String title = req.getParameter("inputTitle");
+			String completed = req.getParameter("completed");
+//			String emp = req.getParameter("employee");
+			
+			Task task = new Task();
+			task.setTitle(title);
+			
+			if (completed == "false") {
+				task.setCompleted(false);
+			}
+			else {
+				task.setCompleted(true);
+			}
+			
+//			task.setEmployee(empdao.findById(Integer.parseInt(emp)));
+			
+			dao.update(task);
+			
+		}
+		
+		if(delete != null) {
+			
+			Long id = Long.parseLong(delete);
+			
+			dao.deleteById(id);
+			
+		}
 
 		resp.sendRedirect("tasks");
 	}

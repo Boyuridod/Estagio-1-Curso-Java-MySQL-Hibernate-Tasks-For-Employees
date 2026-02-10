@@ -89,8 +89,6 @@ public class EmployeeServlet extends HttpServlet {
 
 			Integer id = Integer.parseInt(delete);
 			
-			System.out.println(id);
-			
 			dao.deleteById(id);
 
 		}

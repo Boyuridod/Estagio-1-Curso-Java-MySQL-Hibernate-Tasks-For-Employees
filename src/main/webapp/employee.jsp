@@ -7,10 +7,6 @@
 <meta charset="UTF-8">
 <title>Employee</title>
 <style>
-	.hidden {
-		display: none;
-	}
-	
 	table {
 		border-collapse: collapse;
 	}
@@ -21,10 +17,6 @@
 	}
 	
 	.borderless{
-		border: 0;
-	}
-	
-	.borderless:focus {
 		border: 0;
 	}
 }
