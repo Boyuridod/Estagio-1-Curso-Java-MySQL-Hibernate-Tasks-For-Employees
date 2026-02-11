@@ -63,9 +63,18 @@ th, td {
 							class="borderless" readonly></td>
 						<td><input name="inputCompleted${row.id}"
 							value="${row.completed}" class="borderless"></td>
-						<td><input name="inputTitle{row.id}" value="${row.title}"
+						<td><input name="inputTitle${row.id}" value="${row.title}"
 							class="borderless"></td>
-						<td>Aqui fica o employee pra escolher</td>
+						<td>
+							<select id="inputEmployee${row.id}" name="inputEmployee${row.id}">
+								<option value="${row.employee.id}">[${row.employee.id}]
+										(${row.employee.role}): ${row.employee.firstName}</option>
+								<c:forEach items="${employees}" var="employee">
+									<option value="${employee.id}">[${employee.id}]
+										(${employee.role}): ${employee.firstName}</option>
+								</c:forEach>
+							</select>
+						</td>
 						<td><button type="submit" name="update" value="${row.id}">Update</button></td>
 						<td><button type="submit" name="delete" value="${row.id}"
 								onclick="return confirm('Tem certeza?')">Delete</button></td>

@@ -64,12 +64,15 @@ public class TaskServlet extends HttpServlet {
 		
 		if(update != null) {
 			
-			int id = Integer.parseInt(req.getParameter("inputId"));
-			String title = req.getParameter("inputTitle");
-			String completed = req.getParameter("completed");
-//			String emp = req.getParameter("employee");
+			Long id = Long.parseLong(update);
+			String title = req.getParameter("inputTitle" + id);
+			String completed = req.getParameter("inputCompleted" + id);
+			String emp = req.getParameter("inputEmployee" + id);
 			
 			Task task = new Task();
+			
+			task.setId(id);
+			
 			task.setTitle(title);
 			
 			if (completed == "false") {
@@ -79,7 +82,7 @@ public class TaskServlet extends HttpServlet {
 				task.setCompleted(true);
 			}
 			
-//			task.setEmployee(empdao.findById(Integer.parseInt(emp)));
+			task.setEmployee(empdao.findById(Integer.parseInt(emp)));
 			
 			dao.update(task);
 			

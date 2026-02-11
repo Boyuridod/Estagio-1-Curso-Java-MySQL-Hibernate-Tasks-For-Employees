@@ -41,6 +41,8 @@
 	</form>
 
 	<br>
+	
+	<h2>Employee List</h2>
 
 	<form method="get">
 		<label>Type a name to search: </label> <input type="text"
